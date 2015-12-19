@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+    <!-- (c) MikeZheng -->
+   
+<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if !IE]><!-->
+<html>
+  <!--<![endif]-->
+<head>
+    <title>PaperDragon</title>
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"  rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    
+    <style>
+    .container{
+        width:800px;
+        background-color: rgba(189, 189, 189, 0.15);
+
+    }
+    #mapbg{
+            background:  url(images/map1.jpg);
+            height:500px;
+            background-size: cover;
+
+    }
+    .line{
+                 background: no-repeat url(images/line.png);
+                background-size: contain;
+                background-position: center;
+    }
+    </style>
+</head>
+<body>
+    
+
+    <!--#BC2030-->
+
+    
+    <div class="container">
+    <div id="gameview">
+    <div  id="map" >
+      <div class="row">
+      <span><div class="col-md-12">&nbsp;</div></span>
+      <h2></h2>
+      </div>
+       <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-8" style="text-align: center;">
+                <div id="mapbg">
+                    <div  style="height:80px;"> <div style=" padding: 50px 0px 0px 0px;"><h4>PaperDragon</h4></div> </div>
+                     <div class="line">&nbsp;</div>  
+                    <button type="button" class="btn btn-default disabled " aria-label="Left Align" style="  border-radius: 2.5em;">
+                      <span class="glyphicon glyphicon-king" aria-hidden="true"></span>
+                    </button>
+                    <div class="line">&nbsp;</div>
+                    <button type="button" class="btn btn-default disabled " aria-label="Left Align" style="  border-radius: 2.5em;">
+                      <span class="glyphicon glyphicon-queen" aria-hidden="true"></span>
+                    </button>
+                    <div class="">此區域尚未開放， 請儲值啟動專業版</div>
+                    <button id="step5" type="button" class="btn btn-default" aria-label="Left Align" style="  border-radius: 2.5em;">
+                      <span class="glyphicon glyphicon-knight" aria-hidden="true"></span>
+                    </button>
+                    <div class="line">&nbsp;</div>
+                    <button id="step4" type="button" class="btn btn-default" aria-label="Left Align" style="  border-radius: 2.5em;">
+                      <span class="glyphicon glyphicon-knight" aria-hidden="true"></span>
+                    </button>
+                    <div class="line">&nbsp;</div>
+                    <button id="step3"type="button" class="btn btn-default" aria-label="Left Align" style="  border-radius: 2.5em;">
+                      <span class="glyphicon glyphicon-knight" aria-hidden="true"></span>
+                    </button>
+                    <div class="line">&nbsp;</div>
+                    <button id="step2" type="button" class="btn btn-default" aria-label="Left Align" style="  border-radius: 2.5em;">
+                      <span class="glyphicon glyphicon-knight" aria-hidden="true"></span>
+                    </button>
+                    <div class="line">&nbsp;</div>
+                     <button id="step1" type="button" class="btn btn-danger" aria-label="Left Align" style="  border-radius: 2.5em;">
+                      <span class="glyphicon glyphicon-pawn" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-2">&nbsp;
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">&nbsp;</div>
+            <div id=""class="col-md-6" style="text-align: center;font-size: 2em;">
+                
+            請選擇關卡...
+
+            </div>
+
+            <div class="col-md-3">&nbsp;</div>
+        </div>
+       
+    </div>
+
+
+    <div  id="game" >
+      <div class="row">
+      <span><div class="col-md-12">&nbsp;</div></span>
+      <h2></h2>
+      </div>
+       <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-8" style="text-align: center;">
+                
+                    <div class="stage bor">
+                        <div class="ken stance"></div>
+                        <div class="guile stance2 flip"></div>
+
+                        <a class="pause"></a>
+
+                        <div class="progress" style="position: absolute;
+                            right: 5px;
+                            bottom: 5px;
+                            width: 120px;
+                            height: 20px;">
+                          <div id="drBlood"class="progress-bar" role="progressbar" aria-valuenow="70"
+                          aria-valuemin="0" aria-valuemax="100" style=" width: 100%;">
+                            70%
+                          </div>
+                        </div>
+                        <div class="progress" style="position: absolute;
+                            
+                            bottom: 5px;
+                            width: 120px;
+                            height: 20px;">
+                          <div id="myBlood" class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70"
+                          aria-valuemin="0" aria-valuemax="100" style=" width: 100%;float: right;">
+                            70% Complete (danger)
+                          </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-md-2">&nbsp;
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">&nbsp;</div>
+            <div id="question"class="col-md-6" style="text-align: center;font-size: 2em;">
+                
+            資料讀取中...
+
+            </div>
+
+            <div class="col-md-3">&nbsp;</div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-4" style="text-align: center;">
+                <button id="ansA" class="btn btn-lg btn-default"style="width: 100%;">A</button>
+            </div>
+            <div class="col-md-4" style="text-align: center;">
+                <button id="ansB" class="btn btn-lg btn-default"style="width: 100%;">B</button>
+            </div>
+            <div class="col-md-2">&nbsp;</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-4" style="text-align: center;">
+                <button id="ansC" class="btn btn-lg btn-default"style="width: 100%;">C</button>
+            </div>
+            <div class="col-md-4" style="text-align: center;">
+                <button id="ansD" class="btn btn-lg btn-default"style="width: 100%;">D</button>
+            </div>
+            <div class="col-md-2">&nbsp;</div>
+        </div>
+       
+        </div>
+        </div>
+
+        <div  id="nav" >
+            <div class="row">
+                <div class="col-md-2">&nbsp;</div>
+                <div class="col-md-8" style="text-align: center;">
+                    <button id="navbook"class="btn btn-warning">魔法書</button>
+                    <button id="navgame"class="btn btn-warning">回到遊戲</button>
+                    <button id="navmental"class="btn btn-warning">我的戰績</button>
+                </div>
+                <div class="col-md-2">&nbsp;</div>
+            </div>
+        </div>
+
+
+        <div  id="controlpad" class="hide" >
+                 <hr/>
+            <div class="row">
+              <div style="text-align: center;"><h2>控制版</h2></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">&nbsp;</div>
+                  <div class="col-md-4" style="text-align: center;">
+                    <div class="input-group">
+                      <input id='queryQuestionValue' type="text" class="form-control" placeholder="題號">
+                      <span  class="input-group-btn">
+                        <button id='queryQuestionBTN' class="btn btn-default" type="button">Go!</button>
+                      </span>
+                    </div><!-- /input-group -->
+                  </div>
+                  <div class="col-md-4">&nbsp;</div>
+                
+              </div>
+            <div class="row">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-4" style="text-align: center;">
+                    <button class="btn btn-default ac">答&nbsp;&nbsp;&nbsp;&nbsp;對</button>
+                    <button class="btn btn-default wa">答&nbsp;&nbsp;&nbsp;&nbsp;錯</button>
+                    <button class="btn btn-default nxt">下一關</button>
+                </div>
+                <div class="col-md-4">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <table class="commands hide">
+        <tr>
+            <td>Punch <span class="key" id="a">a</span>
+            <td>Kick <span class="key" id="z">z</span>
+            <td>Jump &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key" id="up">▲</span>
+        <tr>
+            <td>Shoryuken <span class="key" id="d">d</span>
+            <td>Reverse kick <span class="key" id="e">e</span>
+            <td>Walk <span class="key" id="left">◀</span> <span class="key" id="right">►</span> <!--▲▼◀►-->
+        <tr>!
+            <td>Hadoken <span class="key" id="s">s</span>
+            <td>Tatsumaki Senpuu Kyaku <span class="key" id="q">q</span>
+            <td>Kneel &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key" id="down">▼</span>
+        <tr>
+            <td>
+            <td>
+            <td>
+    </table>
+    
+<script src="js/jquery.min.js"></script>
+<script src="js/soundmanager2-jsmin.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/ken.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>PaperDragon</title>
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"  rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+   
+ <link href="assets/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
+  <script src="assets/bootstrap-switch-master/dist/js/bootstrap-switch.min.js"></script>
+<link href="css/login_style.css" rel="stylesheet" type="text/css" media="all"/>
+<script>
+ 	function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
+	$( document ).ready(function() {
+
+
+		var state=getUrlParam("state");
+		
+		if(state=="fail")
+		{
+
+			$("#stat").empty().append("登入失敗請重新登入");
+
+
+		}
+	$.fn.bootstrapSwitch.defaults.size = 'mini';
+	$.fn.bootstrapSwitch.defaults.onColor = 'danger';
+    $("[name='t']").bootstrapSwitch();
+   
+});
+	
+</script>
+</head>
+<body>
+<div class="login">
+
+	<div class="login-top">
+		<img src="images/logo2.png" alt="Paper Dragon LOGO" > 
+		<h4 id="stat" style=" text-align: center;
+    color: #F71010;"></h4>
+		<form  method="post" action="http://140.112.27.43/Project/db_hackathon/login.php?rest=http://140.112.27.43/Project/db_hackathon/PaperDragon/index.html&retea=http://140.112.27.43/Project/db_hackathon/PaperDragon/teacher.html">
+			<input name="a" type="text" value="User Id" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User Id';}">
+			<input name="p" type="password" value="password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'password';}">
+	    
+	    	<div class="forgot">
+	    	
+	            <input type="checkbox" name="t" checked>
+		    	<a href="#"></a>
+	    	<input type="submit" value="Login" >
+	   		 </div>
+	    </form>
+	</div>
+	<div class="login-bottom">
+		
+	</div>
+</div>	
+
+</body>
+</html>

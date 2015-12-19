@@ -1,0 +1,272 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>PaperDragon</title>
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"  rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+   <script src="js/Chart.js"></script>
+     <link href="assets/css/style.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+   
+<link href="css/teacher_style.css" rel="stylesheet" type="text/css" media="all"/>
+
+
+<script>
+	var uid;
+	$( document ).ready(function() {
+	 uid=getCookie("account");
+     //alert(uid);
+     //uid="t00001";
+	loadProject();
+
+   
+});
+
+
+
+
+		function getment(id){
+		    var resp;
+		    $.ajax({
+		      async: false, 
+		      url: 'http://140.112.27.43/Project/db_hackathon/share.php?id='+id,
+		      type:'GET', 
+		      dataType: 'json',
+		      success:function(json) {
+		        resp = json;
+		      }
+		    });
+		    return resp;
+		}
+	/*
+{"a":0.66666666666667,"b":1,"c":1.6666666666667,"d":0.66666666666667,"e":0.66666666666667}
+*/
+
+
+		//model 連ajax的主函式
+		function getjson(){
+		    var resp;
+		    $.ajax({
+		      async: false, 
+		      url: 'http://140.112.27.43/Project/db_hackathon/get_teacher.php?account='+uid,
+		      type:'GET', 
+		      dataType: 'json',
+		      success:function(json) {
+		        resp = json;
+		      }
+		    });
+		    return resp;
+		}
+	
+
+		//controller  call連ajax的函式得到Json後 針對json做事情
+		function loadProject(){
+
+		        //去ajax 要 json
+		        var getb = getjson();
+/*
+[{"student_account":"s0000101","student_data":"{'name':'\u67ef\u25cb\u745c'}"},{"student_account":"s0000102","student_data":"{'name':'\u912d\u25cb\u5f65'}"},{"student_account":"s0000103","student_data":"{'name':'\u65bd\u25cb\u5ba3'}"},{"student_account":"s0000104","student_data":"{'name':'\u9673\u25cb\u6b66'}"},{"student_account":"s0000105","student_data":"{'name':'\u5b8b\u25cb\u6b66'}"},{"student_account":"s0000106","student_data":"{'name':'\u5433\u25cb\u51e1'}"},{"student_account":"s0000107","student_data":"{'name':'\u66fe\u25cb\u665f'}"},{"student_account":"s0000108","student_data":"{'name':'\u6797\u25cb\u541b'}"},{"student_account":"s0000109","student_data":"{'name':'\u9b4f\u25cb\u6b66'}"},{"student_account":"s0000110","student_data":"{'name':'\u4f55\u25cb\u767c'}"}]
+*/
+
+		        //針對json data 陣列 每一項逐次做處理
+		        $.each(getb,function(i,getbContent){
+		            var student_account=getbContent.student_account;
+		            var student_data=getbContent.student_data;
+		            
+		            
+				var studentname=(student_data).split("'")[3];
+		           //alert(studentname);
+		            ProListView( student_account ,studentname);
+
+		        });
+
+		}
+	
+
+		//view   //做展示
+		function ProListView(ac,name){
+		    var proList = '<tr id='+ac+'><td>'+ac+'</td><td>'+name+'</td></tr>;'
+
+		    $(proList).appendTo("#sttable");
+			addOnclickEvent_studentTable(ac);
+		}
+
+
+    //page 頁面按鈕事件創立
+    function addOnclickEvent_studentTable(id){
+        
+         var idd="#"+id;
+      
+          $(idd).on('click',function() 
+          { 
+          	//alert(id);
+          	var getb=getment(id);
+          	var a=getb.a;
+          	var b=getb.b;
+          	var c=getb.c;
+          	var d=getb.d;
+          	var e=getb.e;
+          	$("#ffa").empty().append("<p>文法題答對率:"+a+"</p>");	
+          	$("#ffb").empty().append("<p>單字題答對率:"+b+"</p>");	
+          	$("#ffc").empty().append("<p>翻譯題答對率:"+c+"</p>");	
+          	$("#ffd").empty().append("<p>克漏字答對率:"+d+"</p>");	
+          	$("#ffe").empty().append("<p>對話題答對率:"+e+"</p>");		
+			$("#ffn").empty().append("學生編號:"+id);	
+			$("#ffna").empty().append("學生姓名:"+'');	
+
+
+
+          	//alert(a);
+		radarChartData = {
+		labels: ["文法", "單字", "翻譯", "克漏字", "對話"],
+		datasets: [
+			{
+				label: "My First dataset",
+				fillColor: "rgba(220,220,220,0.2)",
+				strokeColor: "rgba(220,220,220,1)",
+				pointColor: "rgba(220,220,220,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(220,220,220,1)",
+				data: [a,b,c,d,e]
+			}
+		]
+	};
+          			window.myRadar = new Chart(document.getElementById("canvas").getContext("2d")).Radar(radarChartData, {
+			responsive: true
+		});
+          });
+    }
+
+
+	function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
+	}
+</script>
+<style>
+.left{
+    /*border-style: solid;*/
+    background-color: rgba(189, 189, 189, 0.15);
+    border-right: none;
+    border-width: 1em;
+    border-top-left-radius: 1.5em;
+    border-bottom-left-radius: 1.5em;
+    border-color: #BC2030;
+       
+    }
+.right{
+	background-color: rgba(189, 189, 189, 0.15);
+    /*border-style: solid;*/
+    border-left: none;
+    border-width: 1em;
+    border-top-right-radius: 1.5em;
+    border-bottom-right-radius: 1.5em;
+    border-color: #BC2030;
+
+        border-top-style: solid;
+    border-width: 0.5em;
+    border-top-right-radius: 1.5em;
+
+       
+    }
+
+.login-bottom {
+    background: #BC2030;
+    padding: 10px 65px;
+    border-radius: 0px 0px 25px 25px;
+    -webkit-border-radius: 0px 0px 25px 25px;
+    -moz-border-radius: 0px 0px 25px 25px;
+    -o-border-radius: 0px 0px 25px 25px;
+    text-align: right;
+    border-top: 2px solid #AD4337;}
+
+</style>
+</head>
+<body>
+	<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="left">
+			
+			  <table class="table table-hover">
+			    <thead>
+			      <tr>
+			        <th>號碼</th>
+			        <th>姓名</th>
+			       
+			      </tr>
+			    </thead>
+			    <tbody id="sttable">
+			     
+			    </tbody>
+			  </table>
+			</div>
+		</div>
+		<div class="col-md-9" >
+			<div class="right">
+			<h2>控制</h2>
+			<h4 style="    padding:0% 5%;">
+				<div id="ffn">	學生編號:11</div>
+				<div id="ffna">	學生姓名:鄭力文	</div>
+			</h4>
+			<div  class="row" style="    padding: 5%;">
+				<div class="col-md-6">
+				<h4>
+					<p id="ffa">文法題答對率:</p>
+					<p id="ffb">單字題答對率:</p>
+					<p id="ffc">翻譯題答對率:</p>
+					<p id="ffd">克漏字答對率:</p>
+					<p id="ffe">對話題答對率:</p>
+				
+				</h4>
+				</div>
+				<div class="col-md-6" style="width:30%">
+					<canvas id="canvas" height="450" width="450"></canvas>
+				</div>
+			</div>
+			
+			</div>
+		</div>
+		
+	</div>
+	<div></div>
+	</div>	
+<script>
+	var radarChartData = {
+		labels: ["文法", "單字", "翻譯", "克漏字", "對話"],
+		datasets: [
+			{
+				label: "My First dataset",
+				fillColor: "rgba(220,220,220,0.2)",
+				strokeColor: "rgba(220,220,220,1)",
+				pointColor: "rgba(220,220,220,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(220,220,220,1)",
+				data: [65,59,90,81,56]
+			}
+		]
+	};
+
+	window.onload = function(){
+		window.myRadar = new Chart(document.getElementById("canvas").getContext("2d")).Radar(radarChartData, {
+			responsive: true
+		});
+	}
+
+	</script>
+</body>
+</html>
